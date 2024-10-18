@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Catálogo de Productos</title>
+    <link rel="stylesheet" href="/css/styles.css">
+</head>
+<body>
+<h1>Catálogo de Productos</h1>
+
+<div>
+    <!-- Lista de productos generada dinámicamente -->
+    <ul>
+        <li th:each="product : ${products}">
+            <h2 th:text="${product.name}">Nombre del Producto</h2>
+            <p th:text="${product.description}">Descripción</p>
+            <p>Precio: <span th:text="${product.price}">0.00</span></p>
+            <button th:onclick="'addToCart(' + ${product.id} + ')'">Agregar al carrito</button>
+        </li>
+    </ul>
+</div>
+
+<script src="/js/main.js"></script>
+</body>
+</html>
