@@ -3,36 +3,55 @@ package com.educacion_it_franco.integrador3.controllers;
 import com.educacion_it_franco.integrador3.entities.Product;
 import com.educacion_it_franco.integrador3.services.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-@RestController
-@RequestMapping("/api/products")
+@Controller
+@RequestMapping("/productos")
 public class ProductController {
 
     @Autowired
-    private ProductService productService;
-
+    private ProductService productoService;
 
     @GetMapping
-    public List<Product> getAllProducts() {
-        return productService.getAllProducts();
+    public String listarProductos(Model model) {
+        List<Product> productos = productoService.obtenerTodos();
+        model.addAttribute("productos", productos);
+        return "productos/listar";
     }
 
-    @GetMapping("/{id}")
-    public Product getProductById(@PathVariable Long id) {
-        return productService.getProductById(id);
+    @GetMapping("/crear")
+    public String mostrarFormularioCrear(Model model) {
+        model.addAttribute("producto", new Product());
+        return "productos/formulario";
     }
 
     @PostMapping
-    public Product createProduct(@RequestBody Product product) {
-        return productService.saveProduct(product);
+    public String crearProducto(@ModelAttribute Product producto) {
+        productoService.crearOActualizar(producto);
+        return "redirect:/productos";
     }
 
-    @DeleteMapping("/{id}")
-    public void deleteProduct(@PathVariable Long id) {
-        productService.deleteProduct(id);
+    @GetMapping("/editar/{id}")
+    public String mostrarFormularioEditar(@PathVariable Long id, Model model) {
+        Product producto = productoService.obtenerPorId(id).orElse(null);
+        model.addAttribute("producto", producto);
+        return "productos/listar";
+    }
+
+    @PostMapping("/actualizar/{id}")
+    public String actualizarProducto(@PathVariable Long id, @ModelAttribute Product producto) {
+        producto.setId(id);
+        productoService.crearOActualizar(producto);
+        return "redirect:/productos";
+    }
+
+    @GetMapping("/eliminar/{id}")
+    public String eliminarProducto(@PathVariable Long id) {
+        productoService.eliminar(id);
+        return "redirect:/productos";
     }
 }

@@ -15,7 +15,7 @@ public class ViewController {
 
     @GetMapping("/")
     public String showProductCatalog(Model model) {
-        List<Product> products = productService.getAllProducts();
+        List<Product> products = productService.obtenerTodos();
         model.addAttribute("products", products);
         return "index";
     }

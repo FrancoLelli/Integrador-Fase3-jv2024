@@ -1,25 +1,19 @@
 package com.educacion_it_franco.integrador3.entities;
 
 import jakarta.persistence.*;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.Data;
 
 @Entity
-@Getter
-@Setter
+@Data  // Lombok se encargará de generar getters, setters, equals, hashCode, toString
 public class Product {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private String name;
-    private String description;
-    private Double price;
-    private Integer stock;
+    private String nombre;
 
-    @ManyToOne
-    @JoinColumn(name = "category_id")
-    private Category category;
+    private double precio;
 
-    // Getters and Setters
+    private int stock;
 }

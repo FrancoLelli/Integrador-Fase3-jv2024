@@ -1,34 +1,11 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title>Productos</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/4.5.2/css/bootstrap.min.css">
+    <title>Listado de Productos</title>
 </head>
 <body>
-<div class="container">
-    <h1>Lista de Productos</h1>
-    <table class="table">
-        <thead>
-        <tr>
-            <th>Nombre</th>
-            <th>Precio</th>
-            <th>Acciones</th>
-        </tr>
-        </thead>
-        <tbody>
-        <tr th:each="product : ${products}">
-            <td th:text="${product.name}"></td>
-            <td th:text="${product.price}"></td>
-            <td>
-                <form th:action="@{/cart/{cartId}/add(cartId=${cartId})}" method="post">
-                    <input type="hidden" th:value="${product.id}" name="productId"/>
-                    <button type="submit" class="btn btn-success">Agregar al Carrito</button>
-                </form>
-            </td>
-        </tr>
-        </tbody>
-    </table>
-    <a class="btn btn-primary" th:href="@{/cart/{cartId}(cartId=${cartId})}">Ver Carrito</a>
-</div>
+<h1>Proyecto Integrador Fase 3</h1>
+<a th:href="@{/productos}">Ver Producto</a>
+<a th:href="@{/cart/1}">Ver Carrito</a>
 </body>
 </html>
