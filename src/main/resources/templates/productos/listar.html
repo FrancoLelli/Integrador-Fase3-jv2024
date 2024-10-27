@@ -17,8 +17,7 @@
         <td th:text="${producto.precio}"></td>
         <td th:text="${producto.stock}"></td>
         <td>
-            <a th:href="@{/{cartId}/agregar/(productoId=${producto.id})(cartId=1)}">Agregar</a>
-
+            <a th:href="@{/{cartId}/agregar/{productoId}(cartId=1, productoId=1)}">Agregar</a>
         </td>
     </tr>
 </table>

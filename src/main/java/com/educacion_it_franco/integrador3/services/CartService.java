@@ -21,7 +21,6 @@ public class CartService {
     public Cart agregarProducto(Long cartId, Long productoId) {
         Optional<Cart> cartOptional = cartRepository.findById(cartId);
         Optional<Product> productoOptional = productoRepository.findById(productoId);
-
         if (cartOptional.isPresent() && productoOptional.isPresent()) {
             Cart cart = cartOptional.get();
             Product producto = productoOptional.get();
